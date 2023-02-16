@@ -1,5 +1,6 @@
 package io.my.tobyhelloboot;
 
+import org.springframework.boot.SpringApplication;
 import org.springframework.boot.web.embedded.tomcat.TomcatServletWebServerFactory;
 import org.springframework.boot.web.servlet.server.ServletWebServerFactory;
 import org.springframework.context.annotation.Bean;
@@ -21,7 +22,7 @@ public class TobyhellobootApplication {
     }
 
     public static void main(String[] args) {
-        MySpringApplication.run(TobyhellobootApplication.class, args);
+        SpringApplication.run(TobyhellobootApplication.class, args);
     }
 
 }
