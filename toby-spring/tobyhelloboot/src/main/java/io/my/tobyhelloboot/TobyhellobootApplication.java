@@ -9,15 +9,19 @@ import org.springframework.web.servlet.DispatcherServlet;
 public class TobyhellobootApplication {
 
     public static void main(String[] args) {
-        GenericWebApplicationContext applicationContext = new GenericWebApplicationContext();
+        GenericWebApplicationContext applicationContext = new GenericWebApplicationContext() {
+            @Override
+            protected void onRefresh() {
+                ServletWebServerFactory serverFactory = new TomcatServletWebServerFactory();
+                serverFactory.getWebServer(servletContext -> {
+                    servletContext.addServlet("dispatcherServlet", new DispatcherServlet(this)).addMapping("/*");
+                }).start();
+            }
+        };
+
         applicationContext.registerBean(HelloController.class);
         applicationContext.registerBean(SimpleHelloService.class);
         applicationContext.refresh();
-
-        ServletWebServerFactory serverFactory = new TomcatServletWebServerFactory();
-        serverFactory.getWebServer(servletContext -> {
-            servletContext.addServlet("dispatcherServlet", new DispatcherServlet(applicationContext)).addMapping("/*");
-        }).start();
     }
 
 }
