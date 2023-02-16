@@ -25,7 +25,7 @@ public class HelloApiTest {
         // header(content-type) text/plain
         assertEquals("text/plain;charset=ISO-8859-1", res.getHeaders().getFirst(HttpHeaders.CONTENT_TYPE));
         // body Hello Spring
-        assertEquals("Hello Spring", res.getBody());
+        assertEquals("*Hello Spring*", res.getBody());
     }
 
     @Test
@@ -37,6 +37,13 @@ public class HelloApiTest {
 
         // status code 200
         assertEquals(HttpStatus.INTERNAL_SERVER_ERROR, res.getStatusCode());
+    }
+
+    @Test
+    void helloDecorator() {
+        HelloDecorator decorator = new HelloDecorator(name -> name);
+        String test = decorator.sayHello("Test");
+        assertEquals("*Test*", test);
     }
 
 }
