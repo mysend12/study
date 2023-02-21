@@ -1,14 +1,14 @@
 package io.my.config;
 
-import org.springframework.context.annotation.Import;
+import org.springframework.context.annotation.Configuration;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Retention(RetentionPolicy.RUNTIME)
+@Configuration
 @Target(ElementType.TYPE)
-@Import(MyAutoConfigurationImportSelector.class)
-public @interface EnableMyAutoConfiguration {
+@Retention(RetentionPolicy.RUNTIME)
+public @interface MyAutoConfiguration {
 }

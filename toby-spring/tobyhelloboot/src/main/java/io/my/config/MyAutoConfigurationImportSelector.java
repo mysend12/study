@@ -1,14 +1,21 @@
 package io.my.config;
 
+import org.springframework.boot.context.annotation.ImportCandidates;
 import org.springframework.context.annotation.DeferredImportSelector;
 import org.springframework.core.type.AnnotationMetadata;
 
+import java.util.stream.StreamSupport;
+
 public class MyAutoConfigurationImportSelector implements DeferredImportSelector {
+    private final ClassLoader classLoader;
+
+    public MyAutoConfigurationImportSelector(ClassLoader classLoader) {
+        this.classLoader = classLoader;
+    }
+
     @Override
     public String[] selectImports(AnnotationMetadata importingClassMetadata) {
-        return new String[]{
-                "io.my.config.autoconfig.DispatherServletConfig",
-                "io.my.config.autoconfig.TomcatWebServerConfiguration"
-        };
+        Iterable<String> candidates = ImportCandidates.load(MyAutoConfiguration.class, classLoader);
+        return StreamSupport.stream(candidates.spliterator(), false).toArray(String[]::new);
     }
 }
