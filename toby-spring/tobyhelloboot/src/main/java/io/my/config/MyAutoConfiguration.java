@@ -7,8 +7,8 @@ import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
 
-@Configuration
 @Target(ElementType.TYPE)
 @Retention(RetentionPolicy.RUNTIME)
+@Configuration(proxyBeanMethods = false)
 public @interface MyAutoConfiguration {
 }
