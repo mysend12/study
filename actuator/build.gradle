@@ -18,6 +18,16 @@ repositories {
     mavenCentral()
 }
 
+ext {
+    set('springCloudVersion', "2022.0.0")
+}
+
+dependencyManagement {
+    imports {
+        mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
+    }
+}
+
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-actuator'
     implementation 'org.springframework.boot:spring-boot-starter-web'
@@ -27,8 +37,19 @@ dependencies {
     runtimeOnly 'io.micrometer:micrometer-registry-prometheus'
     // https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-security
     implementation 'org.springframework.boot:spring-boot-starter-security'
+    implementation 'org.springframework.cloud:spring-cloud-starter-circuitbreaker-resilience4j'
+//    implementation 'org.springframework.cloud:spring-cloud-starter-zipkin'
 
-//    runtimeOnly 'io.dropwizard.metrics:metrics-core'
+//    implementation 'io.micrometer:micrometer-tracing'
+//    implementation 'io.micrometer:micrometer-tracing-bridge-otel'
+//    implementation 'io.micrometer:micrometer-tracing-observation'
+    implementation 'io.zipkin.reporter2:zipkin-reporter-brave'
+    implementation 'io.micrometer:micrometer-tracing-bridge-brave'
+    implementation 'io.micrometer:micrometer-tracing:latest.integration'
+
+    implementation 'org.springframework.boot:spring-boot-starter-aop'
+
+
 }
 
 tasks.named('test') {

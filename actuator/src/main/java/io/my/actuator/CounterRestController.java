@@ -1,18 +1,36 @@
 package io.my.actuator;
 
+import io.micrometer.observation.annotation.Observed;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
 
+@Slf4j
 @RestController
-@RequestMapping("/customers")
 @RequiredArgsConstructor
+@RequestMapping("/customers")
+@Observed(name = "counterRestController")
 public class CounterRestController {
     private final CounterService counterService;
     private final CustomerRepository customerRepository;
+    private final RestTemplate template;
+
+    @GetMapping("/test")
+    public String test() {
+        log.info("test!!");
+        return template.getForObject("http://localhost:8080/customers/test1", String.class);
+    }
+
+    @GetMapping("/test1")
+    public String test1() {
+        log.info("test!!");
+        return "success";
+    }
 
     @GetMapping("/{id}")
     public ResponseEntity<?> get(@PathVariable Long id) {
