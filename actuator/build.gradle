@@ -46,9 +46,10 @@ dependencies {
     implementation 'io.zipkin.reporter2:zipkin-reporter-brave'
     implementation 'io.micrometer:micrometer-tracing-bridge-brave'
     implementation 'io.micrometer:micrometer-tracing:latest.integration'
-
     implementation 'org.springframework.boot:spring-boot-starter-aop'
 
+    implementation 'com.netflix.servo:servo-atlas:0.12.17'
+    implementation 'com.netflix.servo:servo-core:0.12.17'
 
 }
 
