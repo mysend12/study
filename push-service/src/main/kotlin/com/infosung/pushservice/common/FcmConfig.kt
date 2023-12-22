@@ -52,9 +52,10 @@ class FcmConfig @Autowired constructor(
         val credentials = GoogleCredentials
             .fromStream(
                 FileInputStream(
-                    serviceName.sdkName()
+                    ClassLoader.getSystemResource(serviceName.sdkName())
+                        .file
                 )
-            ).createScoped()
+            ).createScoped(properties.scopes)
         credentials.refreshAccessToken()
         return credentials
     }
