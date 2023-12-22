@@ -22,7 +22,7 @@ class FcmService @Autowired constructor(
 ) {
     private final val log = LoggerFactory.getLogger(this::class.java)
 
-    private suspend fun sendMessage(
+    suspend fun sendMessage(
         serviceName: ServiceName,
         targetGroupType: TargetGroupType,
         target: List<String>,

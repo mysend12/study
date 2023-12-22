@@ -4,6 +4,7 @@ import org.springframework.boot.context.properties.ConfigurationProperties
 
 @ConfigurationProperties(prefix = "fcm")
 data class FcmProperties(
+    val scopes: List<String>,
     val projects: Map<String, FcmProject>,
 ) {
     data class FcmProject(
